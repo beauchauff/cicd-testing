@@ -1,0 +1,35 @@
+#Trigger - automatic trigger whenever a pull request is opened or updated against the main branch
+
+name: Trigger
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+
+#Job on Ubuntu runner
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set Python version
+        run: actions/setup-python@v5
+        with: 
+          python-version: '3.9'
+
+      - name: Install dependences
+        run:  pip install -r requirements.txt
+
+      #Run a Linter in 2 steps:
+      - name: Install Flake8
+        run: pip install flake8
+
+      - name: Run Flake8
+        run: flake8 . --count --show-source --statistics # Customize Flake8 options as needed; . runs against current directory
+
+      - name: Run tests
+        run: pytest test.py -v
