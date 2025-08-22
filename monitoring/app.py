@@ -49,7 +49,7 @@ fig = ff.create_distplot(hist_data, group_labels, bin_size=10)
 st.plotly_chart(fig)
 
 #Target Drift Analysis
-st.subheader("Target Drift - Comparing Predictions to User Feedback Setniment")
+st.subheader("Target Drift - Comparing Predictions to User Feedback Sentiment")
 
 col1, col2, = st.columns(2)
 
@@ -79,4 +79,3 @@ st.metric("Precision (Positive Class)", f"{precision:.2%}")
 
 if accuracy < 0.80:
     st.error("Model performance has dropped to less than 80%")
-
