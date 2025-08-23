@@ -21,8 +21,8 @@ Build and run containers; create a shared docker volume:
    docker build -t sentimentmonitoring ./monitoring
 
    #Run containers
-   docker run -d -p 8000:8000 --name sentimentapi \--mount source=sentimentlogs,target=/logs sentimentapi
-   docker run -d -p 8501:8501 --name sentimentmonitor \--mount source=sentimentlogs,target=/logs sentimentmonitoring
+   docker run -d -p 8000:8000 --name sentimentapi --mount source=sentimentlogs,target=/logs sentimentapi
+   docker run -d -p 8501:8501 --name sentimentmonitor --mount source=sentimentlogs,target=/logs sentimentmonitoring
    
 3. Manual Deployment Guide
 How to launch and configure the EC2 instance and its security group.
@@ -73,7 +73,8 @@ F. Deploy the Application
         docker build -t sentimentapi . (if in api folder)
         docker build -t sentimentmonitoring ./monitoring
     -   Run images in the detached mode
-      docker run -d -p 8000:8000 --name sentimentapi \--mount source=sentimentlogs,target=/logs sentimentapi
-      docker run -d -p 8501:8501 --name sentimentmonitor \--mount source=sentimentlogs,target=/logs sentimentmonitor
+      docker run -d -p 8000:8000 --name sentimentapi --mount source=sentimentlogs,target=/logs sentimentapi
+      docker run -d -p 8501:8501 --name sentimentmonitor --mount source=sentimentlogs,target=/logs sentimentmonitor
    
+
 
