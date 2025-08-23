@@ -12,8 +12,18 @@ FastAPI Prediction Service and the monitoring dashboard. The program
 is launched all on a live cloud server (AWS EC2) with the services as separate docker containers.
 
 2. Local Development
-<Instructions on how to build and run the project locally using Docker>
+Build and run containers; create a shared docker volume:
+   #Create a shared docker volume
+   docker volume create sentimentlogs
 
+   #Build images
+   docker build -t sentimentapi . (if in api folder)
+   docker build -t sentimentmonitoring ./monitoring
+
+   #Run containers
+   docker run -d -p 8000:8000 --name sentimentapi \--mount source=sentimentlogs,target=/logs sentimentapi
+   docker run -d -p 8501:8501 --name sentimentmonitor \--mount source=sentimentlogs,target=/logs sentimentmonitor
+   
 3. Manual Deployment Guide
 How to launch and configure the EC2 instance and its security group.
 A. Launch a t2.micro EC2 instance with Ubuntu
@@ -58,10 +68,11 @@ E. Set up the Server Environment
         git clone https://github.com/<username>/<repo>.git        
 F. Deploy the Application
     -   Create a shared Docker volume on the logs
-        sudo docker volume create sentimentlogs
+        docker volume create sentimentlogs
     -   Build images
-        sudo docker build -t sentimentapi . (if in api folder)
-        sudo docker build -t sentimentmonitoring ./monitoring
+        docker build -t sentimentapi . (if in api folder)
+        docker build -t sentimentmonitoring ./monitoring
     -   Run images in the detached mode
-         sudo docker run -d -p 8501:8501 --name sentimentmonitoring \--mount source=/logs,target=/logs sentimentlogs
-
+      docker run -d -p 8000:8000 --name sentimentapi \--mount source=sentimentlogs,target=/logs sentimentapi
+      docker run -d -p 8501:8501 --name sentimentmonitor \--mount source=sentimentlogs,target=/logs sentimentmonitor
+   
