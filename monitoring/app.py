@@ -17,7 +17,7 @@ st.write('Checking for data drift, target drift, and model accuracy')
 #Load dataset function
 @st.cache_data
 def load_imdb():
-    df = pd.read_csv("IMDB Dataset.csv")
+    df = pd.read_csv("IMDB Dataset_1.csv")
     df["text_length"] = df["review"].astype(str).apply(len)
     return df
 
@@ -78,4 +78,5 @@ st.metric("Precision (Positive Class)", f"{precision:.2%}")
 #Warning for accuracy <80%
 
 if accuracy < 0.80:
+
     st.error("Model performance has dropped to less than 80%")
