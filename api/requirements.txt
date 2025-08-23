@@ -1,8 +1,5 @@
-json
 pandas
 scikit-learn
 joblib
 fastapi
 uvicorn[standard]
-Basemodel
-datetime
